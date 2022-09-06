@@ -100,6 +100,7 @@ const deleteImage = async (req, res) => {
   }
 };
 
+//test
 module.exports = {
   writePost,
   allPost,
