@@ -94,3 +94,5 @@ router.patch('/comment/edit', authMiddleWare, editComment);
 
 //댓글삭제
 router.delete('/comment/delete', authMiddleWare, deleteComment);
+
+module.exports = router;
