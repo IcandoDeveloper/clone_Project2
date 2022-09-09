@@ -26,6 +26,14 @@ const signUp = async (req, res) => {
 //로그인
 const login = async (req, res) => {
   try {
+    const { userId, password } = req.body;
+    console.log(userId, password);
+    Users.create({
+      userId,
+      password,
+    });
+    const login = await Users.findOne({ where: { userId } });
+    console.log(login);
     res.status(200).send({ code: 200, message: '성공' });
   } catch (error) {
     res.status(400).send({ code: 400, message: '올바르지 않는 정보' });
