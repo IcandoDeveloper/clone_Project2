@@ -42,7 +42,14 @@ const login = async (req, res) => {
 
 //로그인체크
 const loginCheck = async (req, res) => {
+  const { userId, nickname } = req.query;
   try {
+    const loginCheck = await Users.findAll({
+      logging: false,
+      attributes: ['userId', 'nickname'],
+      where: { userId: String(userId), nickname: String(nickname) },
+    });
+    console.log(loginCheck);
     res.status(200).send({ code: 200, message: '성공' });
   } catch (error) {
     res.status(400).send({ code: 400, message: '올바르지 않는 정보' });
@@ -52,6 +59,15 @@ const loginCheck = async (req, res) => {
 //추가 데이터 만들기
 const setting = async (req, res) => {
   try {
+    const { velogtitle, email, gitadress } = req.body;
+    console.log(velogtitle, email, gitadress);
+    Users.create({
+      velogtitle,
+      email,
+      gitadress,
+    });
+    const setting = await Users.findOne({ where: { userId } });
+    console.log(setting);
     res.status(200).send({ code: 200, message: '성공' });
   } catch (error) {
     res.status(400).send({ code: 400, message: '올바르지 않는 정보' });
@@ -60,7 +76,17 @@ const setting = async (req, res) => {
 
 //추가 데이터 조회
 const getSetting = async (req, res) => {
+  const { velogtitle, email, gitadress } = req.query;
   try {
+    const getSetting = await Users.findAll({
+      logging: false,
+      attributes: ['velogtitle', 'email', 'gitadress'],
+      where: {
+        velogtitle: String(velogtitle),
+        email: String(email),
+        gitadress: String(gitadress),
+      },
+    });
     res.status(200).send({ code: 200, message: '성공' });
   } catch (error) {
     res.status(400).send({ code: 400, message: '올바르지 않는 정보' });
