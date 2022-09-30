@@ -7,16 +7,40 @@ const { Comments, Likes, Posts, Users } = require('../models');
 //메인페이지 작성
 const writePost = async (req, res) => {
   try {
+    const { userInfo } = res.locals;
+    console.log(userInfo);
+    const { title, content } = req.body;
+    const post = await Posts.create({
+      title,
+      content,
+      writer: userInfo.nickname,
+      id: userInfo.id,
+    });
+    console.log(post);
+    res.status(200).send({
+      code: 200,
+      message: 'true',
+      posts: post,
+    });
   } catch (error) {
-    res.status(400).send({ code: 400, message: '올바르지 않는 정보' });
+    res.status(400).send({ code: 400, message: 'fail' });
   }
 };
 
 //메인페이지 전체 조회
 const allPost = async (req, res) => {
   try {
+    const posts = await Users.findAll({
+      // where: { userId: String(userId), nickname: String(nickname) },
+    });
+    //배열 푸는 코드
+    // let post1;
+    // Object.values(post).forEach((num, i) => {
+    //   post1 = num;
+    // });
+    res.status(200).json({ code: 200, message: 'true', posts });
   } catch (error) {
-    res.status(400).send({ code: 400, message: '올바르지 않는 정보' });
+    res.status(400).send({ code: 400, message: 'fail' });
   }
 };
 
