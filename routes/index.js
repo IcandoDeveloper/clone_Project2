@@ -54,7 +54,7 @@ router.post('/post/write', authMiddleWare, writePost);
 router.get('/post/main', authMiddleWare, allPost);
 
 //메인페이지 1개 조회
-router.get('/post/:post_id', authMiddleWare, onePost);
+router.get('/post/:postId', authMiddleWare, onePost);
 
 //메인페이지 삭제
 router.delete('/post/delete/:postId', authMiddleWare, deletePost);
